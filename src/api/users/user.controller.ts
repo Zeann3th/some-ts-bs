@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import supabase_db from "configs/supabase";
+import supabase from "configs/supabase";
 import { Tables } from "models/types";
 
 const getAllUsers = async (req: Request, res: Response): Promise<void> => {
-  const { data, error } = await supabase_db
+  const { data, error } = await supabase
     .from("users")
     .select("userid, username, avatarurl, gender, email, role")
     .returns<Tables<"users">>();
