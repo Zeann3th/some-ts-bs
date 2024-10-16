@@ -1,20 +1,12 @@
 import express from "express";
+import "dotenv/config";
 import { userRoutes } from "./api/users/user.routes";
-import dotenv from "dotenv";
 
 const app = express();
 
 app.use(express.json());
 
-dotenv.config({ debug: true });
-
 const port = process.env.PORT || 7554;
-
-console.log(
-  process.env.PORT,
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY,
-);
 
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Server is healthy" });
