@@ -11,27 +11,27 @@ export type Database = {
     Tables: {
       artists: {
         Row: {
-          artistid: string
           avatarurl: string | null
           country: string | null
           description: string | null
           gender: Database["public"]["Enums"]["genders"] | null
+          id: string
           name: string
         }
         Insert: {
-          artistid: string
           avatarurl?: string | null
           country?: string | null
           description?: string | null
           gender?: Database["public"]["Enums"]["genders"] | null
+          id: string
           name: string
         }
         Update: {
-          artistid?: string
           avatarurl?: string | null
           country?: string | null
           description?: string | null
           gender?: Database["public"]["Enums"]["genders"] | null
+          id?: string
           name?: string
         }
         Relationships: []
@@ -55,14 +55,14 @@ export type Database = {
             columns: ["artistid"]
             isOneToOne: false
             referencedRelation: "artists"
-            referencedColumns: ["artistid"]
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "artistssongs_songid_fkey"
             columns: ["songid"]
             isOneToOne: false
             referencedRelation: "songs"
-            referencedColumns: ["songid"]
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -97,74 +97,55 @@ export type Database = {
             columns: ["songid"]
             isOneToOne: false
             referencedRelation: "songs"
-            referencedColumns: ["songid"]
-          },
-          {
-            foreignKeyName: "playlists_userid_fkey"
-            columns: ["userid"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["userid"]
+            referencedColumns: ["id"]
           },
         ]
+      }
+      profiles: {
+        Row: {
+          avatarurl: string | null
+          gender: Database["public"]["Enums"]["gender_type"]
+          id: string
+          role: string | null
+        }
+        Insert: {
+          avatarurl?: string | null
+          gender: Database["public"]["Enums"]["gender_type"]
+          id: string
+          role?: string | null
+        }
+        Update: {
+          avatarurl?: string | null
+          gender?: Database["public"]["Enums"]["gender_type"]
+          id?: string
+          role?: string | null
+        }
+        Relationships: []
       }
       songs: {
         Row: {
           duration: number | null
           fileurl: string | null
+          id: string
           releasedate: string | null
-          songid: string
           thumbnailurl: string | null
           title: string
         }
         Insert: {
           duration?: number | null
           fileurl?: string | null
+          id?: string
           releasedate?: string | null
-          songid?: string
           thumbnailurl?: string | null
           title: string
         }
         Update: {
           duration?: number | null
           fileurl?: string | null
+          id?: string
           releasedate?: string | null
-          songid?: string
           thumbnailurl?: string | null
           title?: string
-        }
-        Relationships: []
-      }
-      users: {
-        Row: {
-          avatarurl: string | null
-          createdat: string | null
-          email: string
-          gender: Database["public"]["Enums"]["genders"] | null
-          hashedpassword: string
-          role: string | null
-          userid: string
-          username: string
-        }
-        Insert: {
-          avatarurl?: string | null
-          createdat?: string | null
-          email: string
-          gender?: Database["public"]["Enums"]["genders"] | null
-          hashedpassword: string
-          role?: string | null
-          userid?: string
-          username: string
-        }
-        Update: {
-          avatarurl?: string | null
-          createdat?: string | null
-          email?: string
-          gender?: Database["public"]["Enums"]["genders"] | null
-          hashedpassword?: string
-          role?: string | null
-          userid?: string
-          username?: string
         }
         Relationships: []
       }
