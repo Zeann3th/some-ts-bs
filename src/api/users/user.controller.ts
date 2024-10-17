@@ -33,7 +33,7 @@ const getUserByID = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json({ data });
 };
 
-const registerUser = async (req: Request, res: Response): Promise<Response> => {
+const signUp = async (req: Request, res: Response): Promise<Response> => {
   const { email, phone, password, metadata } = req.body;
 
   try {
@@ -70,7 +70,7 @@ const registerUser = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
-const loginUser = async (req: Request, res: Response): Promise<Response> => {
+const signIn = async (req: Request, res: Response): Promise<Response> => {
   const { email, phone, password } = req.body;
 
   try {
@@ -102,4 +102,22 @@ const loginUser = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
-export { getAllUsers, getUserByID, registerUser, loginUser };
+const signInWithGoogle = async (req: Request, res: Response): Promise<any> => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
+      redirectTo: `${process.env.SUPABASE_URL}/auth/v1/callback`,
+    },
+  });
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+
+  return res.redirect(data.url);
+};
+
+export { getAllUsers, getUserByID, signUp, signInWithGoogle, signIn };

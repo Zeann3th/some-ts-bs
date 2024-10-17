@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
   res.status(200).json({ msg: "Server is healthy" });
 });
 
-app.use("/api/v1/u", userRoutes);
+app.use("/api/v1/user", userRoutes);
 
 app.listen(port, () => {
   return console.log(`Listening on localhost:${port}`);
